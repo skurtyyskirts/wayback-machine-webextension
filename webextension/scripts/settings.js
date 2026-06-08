@@ -36,6 +36,7 @@ function restoreSettings(items) {
   // second panel
   $('#auto-archive-setting').prop('checked', items.auto_archive_setting)
   $('#auto-archive-age').val(items.auto_archive_age || '99999')
+  $('#auto-archive-my-archive-setting').prop('checked', items.auto_archive_my_archive_setting)
   $('#auto-bookmark-setting').prop('checked', items.auto_bookmark_setting)
   $('#email-results-setting').prop('checked', items.email_results_setting)
   $('#my-archive-setting').prop('checked', items.my_archive_setting)
@@ -63,6 +64,7 @@ function saveSettings() {
     // second panel
     auto_archive_setting: $('#auto-archive-setting').prop('checked'),
     auto_archive_age: $('#auto-archive-age').val(),
+    auto_archive_my_archive_setting: $('#auto-archive-my-archive-setting').prop('checked'),
     auto_bookmark_setting: $('#auto-bookmark-setting').prop('checked'),
     email_results_setting: $('#email-results-setting').prop('checked'),
     my_archive_setting: $('#my-archive-setting').prop('checked'),
@@ -240,6 +242,7 @@ function setupHelpDocs() {
     'tvnews-setting': 'Auto check for related TV News Clips while visiting selected news websites.',
     // general tab
     'auto-archive-setting': 'Archive URLs that have not previously been archived to the Wayback Machine.',
+    'auto-archive-my-archive-setting': 'Also add auto saved pages to My Web Archive, tagged "extension-auto-save".',
     'auto-bookmark-setting': 'Archive when bookmarking a website, except Excluded URLs.',
     'email-results-setting': 'Get an email report with the list of URLs you have captured.',
     'my-archive-setting': 'Adds URL to My Web Archive when Save Page Now is selected.',

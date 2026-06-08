@@ -226,6 +226,9 @@ async function statusSuccess(atab, pageUrl, silent, data) {
         }
       })
     })
+  } else if (silent && data?.timestamp) {
+    // auto-save: optionally add to My Web Archive tagged 'extension-auto-save'
+    checkSaveAutoToMyWebArchive(pageUrl, data.timestamp)
   }
 }
 
@@ -272,11 +275,12 @@ async function statusFailed(atab, pageUrl, silent, data, err) {
  * This assumes user is logged in with cookies set, and params are valid.
  * @param url {string}: Original URL to save.
  * @param timestamp {string}: Wayback timestamp as "yyyyMMddHHmmss" in UTC.
+ * @param tags {Array}: optional list of tag strings to attach to the saved snapshot.
  * @return Promise: which should return this JSON on success: { "success": true }
  */
-function saveToMyWebArchive(url, timestamp) {
+function saveToMyWebArchive(url, timestamp, tags = []) {
 
-  const postData = { url, 'snapshot': timestamp, 'tags': [] }
+  const postData = { url, 'snapshot': timestamp, tags }
   const timeoutPromise = new Promise((resolve, reject) => {
     setTimeout(() => { reject(new Error('timeout')) }, API_TIMEOUT)
     let headers = new Headers(hostHeaders)
@@ -540,6 +544,25 @@ function checkSaveToMyWebArchive(url, timestamp) {
       })
       .catch(error => {
         console.log('Save to My Web Archive FAILED: ', error)
+      })
+    }
+  })
+}
+
+// Saves auto-saved URL to My Web Archive tagged 'extension-auto-save' if that setting is set.
+//
+function checkSaveAutoToMyWebArchive(url, timestamp) {
+  chrome.storage.local.get(['auto_archive_my_archive_setting'], (settings) => {
+    if (settings?.auto_archive_my_archive_setting) {
+      saveToMyWebArchive(url, timestamp, ['extension-auto-save'])
+      .then(response => response.json())
+      .then(data => {
+        if (!data?.success) {
+          console.log('Save auto to My Web Archive FAILED: ', data.error)
+        }
+      })
+      .catch(error => {
+        console.log('Save auto to My Web Archive FAILED: ', error)
       })
     }
   })
