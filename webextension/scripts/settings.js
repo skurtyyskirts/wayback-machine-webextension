@@ -242,7 +242,7 @@ function setupHelpDocs() {
     'tvnews-setting': 'Auto check for related TV News Clips while visiting selected news websites.',
     // general tab
     'auto-archive-setting': 'Archive URLs that have not previously been archived to the Wayback Machine.',
-    'auto-archive-my-archive-setting': 'Also add auto saved pages to My Web Archive, tagged "extension-auto-save".',
+    'auto-archive-my-archive-setting': 'Also add auto-saved pages to My Web Archive, tagged "extension-auto-save".',
     'auto-bookmark-setting': 'Archive when bookmarking a website, except Excluded URLs.',
     'email-results-setting': 'Get an email report with the list of URLs you have captured.',
     'my-archive-setting': 'Adds URL to My Web Archive when Save Page Now is selected.',
