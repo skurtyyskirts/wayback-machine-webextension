@@ -826,6 +826,7 @@ function initDefaultOptions () {
     tvnews_setting: false,
     auto_archive_setting: false,
     auto_archive_age: '99999',
+    auto_archive_my_archive_setting: false,
     fact_check_setting: false,
     /* General */
     resource_list_setting: false,
